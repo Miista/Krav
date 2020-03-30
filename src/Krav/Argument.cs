@@ -110,5 +110,7 @@
             var functionFields = target.GetType().GetFields();
             return functionFields.Length == 1 ? functionFields[0].Name : string.Empty;
         }
+
+        public static implicit operator T(Argument<T> argument) => argument.Value;
     }
 }

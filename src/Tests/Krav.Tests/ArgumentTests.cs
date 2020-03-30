@@ -5,6 +5,23 @@ namespace Krav.Tests
 {
     public class ArgumentTests
     {
+        public class ImplicitConversionToT
+        {
+            [Theory]
+            [InlineData("foo", typeof(string))]
+            [InlineData(1, typeof(int))]
+            [InlineData(1.0, typeof(double))]
+            [InlineData(1f, typeof(float))]
+            [InlineData(1L, typeof(long))]
+            [InlineData(true, typeof(bool))]
+            public void CanBeImplicitlyConvertedToT<T>(T argument, Type expectedType)
+            {
+                T unwrappedValue = Require.That(argument).IsOfType(expectedType);
+
+                Assert.Equal(argument, unwrappedValue);
+            }
+        }
+        
         public class IsOfType
         {
             private static readonly string ParameterName = Guid.NewGuid().ToString();
